@@ -6,6 +6,8 @@ const path = require('path');
 
 const productRoutes = require('./api/routes/products');
 const orderRoutes = require('./api/routes/orders');
+const userRoutes = require('./api/routes/user');
+
 
 mongoose.connect('mongodb://st-th:'+ process.env.MONGO_PW +'@motuapi-shard-00-00-raba2.mongodb.net:27017,motuapi-shard-00-01-raba2.mongodb.net:27017,motuapi-shard-00-02-raba2.mongodb.net:27017/test?ssl=true&replicaSet=MotuAPI-shard-0&authSource=admin'
 );
@@ -16,6 +18,7 @@ app.use(bodyParser.json());
 
 app.use('/products', productRoutes);
 app.use('/orders', orderRoutes);
+app.use('/users', userRoutes);
 
 // Set Static Folder
 //app.use(express.static(path.join(__dirname, 'public')));
