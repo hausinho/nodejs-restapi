@@ -5,6 +5,31 @@ const bcrypt = require('bcrypt');
 
 const User = require('../models/user');
 
+router.get("/", (req, res, next) => {
+  User.find()
+    .select("_id email")
+    .exec()
+    .then(docs => {
+      const response = {
+        count: docs.length,
+        users: docs.map(doc => {
+          return {
+            email: doc.email,
+            _id: doc._id,
+          };
+        })
+      };
+  
+      res.status(200).json(response);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
+      });
+    });
+});
+
 router.post('/signup', (req, res, next) => {
   User.find({ email: req.body.email }).exec()
   .then(user => {
